@@ -39,10 +39,9 @@ SvgIO = function() {
     xhr.send("name=" + filename);  
   };
 
-  this.saveToDatabase = function(data) {
+  this.saveToDatabase = function(title, data) {
     var xhr = new XMLHttpRequest();
     var url = "http://freegamersjournal.com/svg-edit-2.6/php/saveSVG.php";
-    var title = null;
     var matches = null;
 
     xhr.open("POST", url, true);
@@ -51,10 +50,12 @@ SvgIO = function() {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     // Look for a title.
-    matches = /<Title>(.)+<\/Title>/i.exec(data);
-    if (matches) {
-      title = /\>(.)+\</.exec(matches[0]);
-      title = title && title.length ? title[0].substring(1, title[0].indexOf('<')) : null;
+    if (!title) {
+      matches = /<Title>(.)+<\/Title>/i.exec(data);
+      if (matches) {
+        title = /\>(.)+\</.exec(matches[0]);
+        title = title && title.length ? title[0].substring(1, title[0].indexOf('<')) : null;
+      }
     }
 
     if (!title) {

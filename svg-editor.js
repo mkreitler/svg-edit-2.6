@@ -2661,7 +2661,7 @@
 			var clickUpload = function(){
 				var resourceName = prompt("Please enter the SVG to save","mySVG");
 				if (resourceName) {
-		      svgIO.saveToDatabase(svgCanvas.getSvgString());
+		      svgIO.saveToDatabase(resourceName, svgCanvas.getSvgString());
 		    }
 			};
 
